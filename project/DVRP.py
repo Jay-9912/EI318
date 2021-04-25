@@ -44,12 +44,12 @@ class DVRP():
 
 
     def input_demand_and_car_num(self,demand_list,car_num,first_place,robot_index): 
-        print('dvrp task_list:')
-        print(demand_list)
-        print('dvrp first place:')
-        print(first_place)
-        print('dvrp robot_index')
-        print(robot_index)
+        # print('dvrp task_list:')
+        # print(demand_list)
+        # print('dvrp first place:')
+        # print(first_place)
+        # print('dvrp robot_index')
+        # print(robot_index)
         self.demand = [0 for i in range(len(demand_list.keys()))]
         for i in demand_list.keys():
             self.demand[self.node_list.index(i)] = demand_list[i]
@@ -59,6 +59,11 @@ class DVRP():
         self.first_place_list = []
         for i in range(len(first_place)):
             self.first_place_list.append(self.node_list.index(first_place[i]))
+        self.task_list=[]
+        self.robot_route_list=[]
+        self.route_index=[]
+        self.savings=[]
+        self.Routes=[]
     def savingsAlgorithms(self):
         saving = 0
         valid_list = []
@@ -369,44 +374,47 @@ class DVRP():
         self.savingsAlgorithms()
         random_search_time = 5
         local_search_time = 5
-        for i in range(random_search_time):
-            self.exchange_and_relocate(local_search_time)
+        #for i in range(random_search_time):
+            #self.exchange_and_relocate(local_search_time)
 
         self.constrain_car_num()
         #self.printRoutes()
         self.get_task_index_list()
         self.get_route_index_list()
         self.give_robot_route()
-        print('dvrp routes:')
-        print(self.robot_route_list)
-        print('dvrp tasks:')
-        print(self.task_list)
-        print('dvrp robots:')
-        print(self.route_index)
+        # print('dvrp routes:')
+        # print(self.robot_route_list)
+        # print('dvrp tasks:')
+        # print(self.task_list)
+        # print('dvrp robots:')
+        # print(self.route_index)
         return self.robot_route_list,self.task_list,self.route_index
 
+if __name__=='__main__':
+    distance_matrix = np.array([[0.0, 12.0, 8.6, 12.0, 25.0, 13.0, 24.0, 17.0],
+                       [12.0, 0.0, 7.9, 5.1, 13.0, 18.1, 12.0, 26.9],
+                       [8.6, 7.9, 0.0, 6.5, 20.9, 19.5, 18.5, 19.0],
+                       [12.0, 5.1, 6.5, 0.0, 15.0, 13.0, 12.0, 23.0],
+                       [25.0, 13.0, 20.9, 15.0, 0.0, 23.0, 4.7, 33.0],
+                       [13.0, 18.1, 19.5, 13.0, 23.0, 0.0, 19.0, 10.0],
+                       [24.0, 12.0, 18.5, 12.0, 4.7, 19.0, 0.0, 29.0],
+                       [17.0, 26.9, 19.0, 23.0, 33.0, 10.0, 29.0, 0.0]])
 
-# distance_matrix = np.array([[0.0, 12.0, 8.6, 12.0, 25.0, 13.0, 24.0, 17.0],
-#                    [12.0, 0.0, 7.9, 5.1, 13.0, 18.1, 12.0, 26.9],
-#                    [8.6, 7.9, 0.0, 6.5, 20.9, 19.5, 18.5, 19.0],
-#                    [12.0, 5.1, 6.5, 0.0, 15.0, 13.0, 12.0, 23.0],
-#                    [25.0, 13.0, 20.9, 15.0, 0.0, 23.0, 4.7, 33.0],
-#                    [13.0, 18.1, 19.5, 13.0, 23.0, 0.0, 19.0, 10.0],
-#                    [24.0, 12.0, 18.5, 12.0, 4.7, 19.0, 0.0, 29.0],
-#                    [17.0, 26.9, 19.0, 23.0, 33.0, 10.0, 29.0, 0.0]])
-#
-# demand = [0, 628, 614, 507, 0, 581, 455, 0, 0, 714, 607, 610, 0, 555, 0]
-# ton = 1895
-#
-#
-#
-# dvrp = DVRP(place_num=16,ton=ton)
-# dvrp.input_demand_and_car_num(demand_list=demand,car_num=3,first_place= [5,6],robot_index=[2,1])
-# a,b,c = dvrp.cal_everything()
-# print(a)
-# print(b)
-# print(c)
-# print(dvrp.Routes)
+    demand = {(9, 6.5): 20, (-4.5, -1.5): 13, (4.5, 6.5): 22, (9, -0.5): 0, (-10.5, -1.5): 0, (4.5, -0.5): 15, (-7.5, -6.5): 0, (9, -12.5): 20, (0, 0): 23, (9, -6.5): 13, (0, -6.5): 60, (4.5, -12.5): 10, (0, 6.5): 21, (-4.5, 6.5): 23, (4.5, -6.5): 0, (0, -12.5): 0}
+    ton = 100
+
+
+
+    dvrp = DVRP(place_num=16,ton=ton)
+    t=0
+    while t<3:
+        dvrp.input_demand_and_car_num(demand_list=demand,car_num=3,first_place= [(0, -6.5)],robot_index=[3])
+        a,b,c = dvrp.cal_everything()
+        print(a)
+        print(b)
+        print(c)
+        print(dvrp.Routes)
+        t+=1
 
 
 
