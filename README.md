@@ -15,7 +15,7 @@ python transportation.py
 
 ![image](https://github.com/Jay-9912/EI318/blob/dev/demo.gif)
 
-```
-* [Reference](https://github.com/Cw-zero/MultiRobot_Simulation)
-```
+
+[Reference](https://github.com/Cw-zero/MultiRobot_Simulation)
+
 
